@@ -19,9 +19,17 @@ hist(spmeans, probability = TRUE, breaks=seq(65,75,0.5),ylim=c(0,0.8),
      main = "Approximate Sampling Distribution \nof Sample Mean Test Scores (n=5)", xlab="Sample Mean Test Scores")
 ## Add a vertical red line to represent the true pop. mean.
 abline(v=mean(x), col="red")
+
+### define function for population standard deviation
+sdp <- function(x){
+  n <- length(x)
+  a <- sd(x)*sqrt((n-1)/n)
+  return(a)
+}
+
 ## Superimpose normal curve that approximates the sampling distribution of the sample mean test scores
 v <- seq(66,74,length=200)
-lines(v,dnorm(v,mean=mean(x), sd=sd(x)/sqrt(5)))
+lines(v,dnorm(v,mean=mean(x), sd=sdp(x)/sqrt(5)))
 
 # 5.
 ## Find the percentage of simulated samples whose sample means of 5 tests are <= 68.
@@ -38,7 +46,7 @@ hist(spmeans20, probability = TRUE, breaks=seq(65,75,0.25), ylim=c(0,0.8),
 abline(v=mean(x), col="red")
 ## Superimpose normal curve that approximates the sampling distribution of the sample mean test scores
 v <- seq(66,74,length=200)
-lines(v,dnorm(v,mean=mean(x), sd=sd(x)/sqrt(20)))
+lines(v,dnorm(v,mean=mean(x), sd=sdp(x)/sqrt(20)))
 
 # Notice that replace=TRUE in the sample() function above, since n=20 is greater than 10% of the population size (N=60).
 # Find out what happens if you change replace to FALSE.
